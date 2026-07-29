@@ -1,12 +1,8 @@
-﻿# InteractionCommands
+﻿# Command Interactions
 
 **Run commands from inside any interaction chain: a weapon proc, a consumable, a button, a block.**
 
-InteractionCommands adds one custom interaction Type, `RunCommand`, that you author inline
-anywhere a native Hytale interaction chain accepts a step. A weapon swing that fires a command on
-a lucky hit, a consumable that grants a bonus item on eat, a custom block that runs a
-permission-gated warp when pressed: if it's built out of the same interaction chains Hytale's own
-items and abilities use, you can drop a command into it. Zero dependencies, one jar.
+Command Interactions adds one custom interaction Type, `RunCommand`, that you author inline anywhere a native Hytale interaction chain accepts a step. A weapon swing that fires a command on a lucky hit, a consumable that grants a bonus item on eat, a custom block that runs a permission-gated warp when pressed: if it's built out of the same interaction chains Hytale's own items and abilities use, you can drop a command into it. Zero dependencies, one jar.
 
 > v1.0.0. First release. The `RunCommand` interaction Type: server or player-authority execution,
 > per-player cooldowns, chance-gated procs, permission gates, and full placeholder substitution
@@ -14,6 +10,16 @@ items and abilities use, you can drop a command into it. Zero dependencies, one 
 
 **Source & full docs:** [github.com/arfemia/hytale-command-interactions](https://github.com/arfemia/hytale-command-interactions) -
 **example pack (ready to drop in):** [InteractionCommandsExamples.zip](https://github.com/arfemia/hytale-command-interactions/raw/main/examples/InteractionCommandsExamples.zip)
+
+[![Discord](https://img.shields.io/badge/Discord-Join%20Server-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/5NFdZsUxHZ) [![Ko-fi](https://img.shields.io/badge/Ko--fi-Support-FF5E5B?style=for-the-badge&logo=ko-fi&logoColor=white)](https://ko-fi.com/ziggfreed)
+
+![Command Interactions - run commands from any Hytale interaction chain](https://github.com/arfemia/hytale-command-interactions/raw/main/assets/banner.gif)
+
+---
+
+[![Host your own Hytale server with Kinetic Hosting](https://i.imgur.com/UHn3FzW.png)](https://billing.kinetichosting.com/aff.php?aff=1262)
+
+---
 
 ## Features
 
@@ -223,9 +229,9 @@ mod's repository.
 
 ## Versions
 
-| Version | Notes |
-| --- | --- |
-| 1.0.0 | First release. The `RunCommand` interaction Type: `Commands`/`RunAs`/`Cooldown`/`Chance`/`Permission`, full placeholder substitution, silent-skip gate semantics, unresolved-placeholder per-command skip. Zero dependencies. |
+| Version | Notes                                                                                                                                                                                                                         |
+| ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1.0.0   | First release. The `RunCommand` interaction Type: `Commands`/`RunAs`/`Cooldown`/`Chance`/`Permission`, full placeholder substitution, silent-skip gate semantics, unresolved-placeholder per-command skip. Zero dependencies. |
 
 ---
 
