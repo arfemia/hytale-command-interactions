@@ -12,6 +12,9 @@ items and abilities use, you can drop a command into it. Zero dependencies, one 
 > per-player cooldowns, chance-gated procs, permission gates, and full placeholder substitution
 > (`{player}`, `{target}`, position, world, held item).
 
+**Source & full docs:** [github.com/arfemia/hytale-command-interactions](https://github.com/arfemia/hytale-command-interactions) -
+**example pack (ready to drop in):** [InteractionCommandsExamples.zip](https://github.com/arfemia/hytale-command-interactions/raw/main/examples/InteractionCommandsExamples.zip)
+
 ## Features
 
 - **Weapon procs that run commands.** Add a `RunCommand` step to any weapon's swing/hit chain
@@ -52,9 +55,11 @@ own.
 
 ### Try the example pack
 
-Want to see `RunCommand` fire without writing any JSON yourself first? Grab
-`InteractionCommandsExamples.zip` from the `examples/` folder of this mod's repository, the
-reference implementation of the three worked examples below.
+Want to see `RunCommand` fire without writing any JSON yourself first? Download
+[`InteractionCommandsExamples.zip`](https://github.com/arfemia/hytale-command-interactions/raw/main/examples/InteractionCommandsExamples.zip)
+(source in the repository's
+[`examples/` folder](https://github.com/arfemia/hytale-command-interactions/tree/main/examples)),
+the reference implementation of the three worked examples below.
 
 1. Drop the mod jar into `Mods/`, then drop `InteractionCommandsExamples.zip` in alongside it.
    Restart the server.
@@ -209,9 +214,11 @@ in the order you wrote them, one starting only after the previous finishes. Rais
 log level to `FINE` to see the unresolved-placeholder skip line. Note that `RunAs: "Server"` (the
 default) sends all command output and errors to the server console, never to the player; use
 `RunAs: "Player"` if you need player-visible feedback. Full detail: the Troubleshooting section of
-`README.md` in this mod's repository.
+[`README.md`](https://github.com/arfemia/hytale-command-interactions/blob/main/README.md) in the
+mod's repository.
 
-Full field-by-field schema reference, gate semantics, and placeholder table: `README.md` in this
+Full field-by-field schema reference, gate semantics, and placeholder table:
+[`README.md`](https://github.com/arfemia/hytale-command-interactions/blob/main/README.md) in the
 mod's repository.
 
 ## Versions
