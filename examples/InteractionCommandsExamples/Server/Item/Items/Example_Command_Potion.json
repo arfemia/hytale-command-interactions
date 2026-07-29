@@ -1,0 +1,33 @@
+{
+  "TranslationProperties": {
+    "Name": "interactioncommandsexamples.items.Example_Command_Potion.name",
+    "Description": "interactioncommandsexamples.items.Example_Command_Potion.description"
+  },
+  "Parent": "Potion_Stamina",
+  "InteractionVars": {
+    "Effect": {
+      "Interactions": [
+        {
+          "Type": "Serial",
+          "Interactions": [
+            {
+              "Type": "ApplyEffect",
+              "EffectId": "Potion_Stamina_Instant_Small"
+            },
+            {
+              "Type": "ApplyEffect",
+              "EffectId": "Potion_Stamina_Cooldown"
+            }
+          ]
+        },
+        {
+          "Type": "RunCommand",
+          "Commands": [
+            "give {player} Wood_Torch_Wall --quantity=4"
+          ],
+          "RunAs": "Server"
+        }
+      ]
+    }
+  }
+}

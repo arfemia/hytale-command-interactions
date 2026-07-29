@@ -1,0 +1,15 @@
+{
+  "Group": "Ziggfreed",
+  "Name": "InteractionCommands",
+  "Version": "${version}",
+  "Description": "${mod_description}",
+  "Authors": [
+    {
+      "Name": "ZiggFreed"
+    }
+  ],
+  "Website": "${website}",
+  "ServerVersion": ">=0.5.0-pre.0 <0.6.0",
+  "DisabledByDefault": false,
+  "Main": "${entry_point}"
+}

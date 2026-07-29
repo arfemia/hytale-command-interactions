@@ -1,0 +1,35 @@
+{
+  "TranslationProperties": {
+    "Name": "interactioncommandsexamples.items.Example_Command_Blade.name",
+    "Description": "interactioncommandsexamples.items.Example_Command_Blade.description"
+  },
+  "Parent": "Weapon_Longsword_Crude",
+  "InteractionVars": {
+    "Longsword_Swing_Left_Damage": {
+      "Interactions": [
+        {
+          "Parent": "Longsword_Swing_Left_Damage",
+          "DamageCalculator": {
+            "Type": "Absolute",
+            "BaseDamage": {
+              "Physical": 8
+            },
+            "RandomPercentageModifier": 0.15
+          },
+          "DamageEffects": {
+            "WorldSoundEventId": "SFX_Longsword_Special_Impact"
+          }
+        },
+        {
+          "Type": "RunCommand",
+          "Commands": [
+            "give {player} Food_Wildmeat_Cooked --quantity=1"
+          ],
+          "RunAs": "Server",
+          "Chance": 0.25,
+          "Cooldown": 5
+        }
+      ]
+    }
+  }
+}

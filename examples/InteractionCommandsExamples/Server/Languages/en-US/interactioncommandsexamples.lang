@@ -1,0 +1,6 @@
+items.Example_Command_Blade.name = Command Blade
+items.Example_Command_Blade.description = A variant longsword with a 25% chance per landed swing, on a 5-second cooldown, to fire a RunCommand step that gives you a cooked wildmeat.
+items.Example_Command_Potion.name = Command Potion
+items.Example_Command_Potion.description = A variant stamina potion whose RunCommand consume step gives you four wall torches alongside the native stamina effect.
+items.Example_Command_Meal.name = Command Meal
+items.Example_Command_Meal.description = A variant cooked meal whose RunCommand consume step gives you a Command Potion, chaining into the potion example.

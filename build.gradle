@@ -1,0 +1,71 @@
+plugins {
+    id 'java'
+}
+
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(java_version)
+    withSourcesJar()
+    withJavadocJar()
+}
+
+javadoc {
+    options.addStringOption('Xdoclint:-missing', '-quiet')
+}
+
+group = project.group
+version = project.version
+
+repositories {
+    mavenCentral()
+}
+
+// Compile against the SAME jar the server runs. ZERO other dependencies (no
+// ziggfreed-common, no MMO jar) - a deliberate maintainer decision for a single-jar
+// CurseForge install. HYTALE_HOME (env var) overrides the checked-in `hytaleHome`
+// gradle.properties default, so a fresh clone on another machine can build without
+// editing a tracked file; either way, fail configuration explicitly with a clear
+// message rather than let a missing jar surface as hundreds of unresolved-symbol
+// compile errors with no hint of the cause.
+def resolvedHytaleHome = System.getenv('HYTALE_HOME') ?: hytaleHome
+def hytaleServerJar = new File("${resolvedHytaleHome}/${patchline}/package/game/${game_build}/Server/HytaleServer.jar")
+if (!hytaleServerJar.exists()) {
+    throw new GradleException(
+            "HytaleServer.jar not found at ${hytaleServerJar}. Set the HYTALE_HOME environment " +
+            "variable to your Hytale install directory, or edit 'hytaleHome' in gradle.properties.")
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    // Gradle 9 requires the JUnit Platform launcher on the test runtime classpath.
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    // The Hytale server jar is provided at runtime (the server loads it first), so we
+    // NEVER bundle it - bundling would double-load engine classes under two classloaders.
+    compileOnly(files(hytaleServerJar))
+
+    // Tests are engine-free by design (GateLogicTest/PlaceholdersTest import only JUnit
+    // and java.util): forcing RunCommandInteraction.CODEC's class-init outside a live
+    // server throws (see the class javadoc), so no test touches the engine jar and it
+    // is deliberately NOT on the test classpath.
+}
+
+test {
+    useJUnitPlatform()
+}
+
+processResources {
+    var expandProps = [
+            'name'           : project.name,
+            'version'        : project.version,
+            'group'          : project.group,
+            'mod_description': project.findProperty('mod_description') ?: '',
+            'website'        : project.findProperty('website') ?: '',
+            'entry_point'    : project.findProperty('entry_point') ?: ''
+    ]
+
+    filesMatching(['manifest.json']) {
+        expand expandProps
+    }
+    inputs.properties(expandProps)
+}

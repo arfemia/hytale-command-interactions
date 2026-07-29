@@ -1,0 +1,17 @@
+{
+  "Group": "Ziggfreed",
+  "Name": "InteractionCommandsExamples",
+  "Version": "1.0.0",
+  "Description": "Runnable example pack for InteractionCommands: a weapon with an on-hit RunCommand proc, a potion and a food that each run a RunCommand step on consume, demonstrating /give commands fired from a live interaction chain.",
+  "Authors": [
+    {
+      "Name": "ZiggFreed"
+    }
+  ],
+  "Website": "https://github.com/arfemia/hytale-command-interactions",
+  "ServerVersion": ">=0.5.0-pre.0 <0.6.0",
+  "IncludesAssetPack": true,
+  "Dependencies": {
+    "Ziggfreed:InteractionCommands": ">=1.0.0"
+  }
+}
