@@ -27,7 +27,7 @@ or any custom RootInteraction. It adds exactly one thing to the game: a custom i
 ## Install
 
 1. Drop `InteractionCommands-<version>.jar` into your Hytale server's `Mods/` folder.
-2. Requires a Hytale server in the Update 5 range (`>=0.5.0-pre.0 <0.6.0`).
+2. Requires a Hytale Update 6 (0.6.x) server (`>=0.6.0-pre.13 <0.7.0`).
 3. **Zero dependencies.** No other mod, library, or content pack is required; this is a
    single-jar install.
 4. Restart the server. InteractionCommands ships no assets, no lang files, and no commands of its
@@ -344,9 +344,10 @@ dispatch path; every one of the shared source's native `Use` authors hangs it of
 in-game-validated Bounty Board block
 (`bounty-contracts-pack/Server/Item/Items/MMO_Bounty_Board.json` in the MMOSkillBountyPack content
 pack): a wall-poster-shaped block reusing a vanilla model and texture (so this example needs no
-custom art of its own), with `BlockType.Flags.IsUsable: true` and `BlockType.Interactions.Use`
-pointing at the RootInteraction. Both run a command as the player themself so Hytale's own
-permission system enforces the gate:
+custom art of its own), with `BlockType.Interactions.Use` pointing at the RootInteraction. On 0.6,
+`Interactions.Use` alone is what makes a placed block usable; the old `Flags.IsUsable` flag is
+retired, and a file still carrying it just logs an unused-key warning per asset in the server log.
+Both run a command as the player themself so Hytale's own permission system enforces the gate:
 
 `Server/Item/RootInteractions/MyPack_Arena_Warp.json`:
 
@@ -367,8 +368,8 @@ permission system enforces the gate:
 
 `Server/Item/Items/MyPack_Arena_Beacon.json` (a placeable block; `Interactions.Primary`/
 `Secondary` point at the native block-break/-place interactions every placeable block needs,
-`BlockType.Flags.IsUsable: true` plus `BlockType.Interactions.Use` is what makes a press-F on the
-placed block fire the RootInteraction above):
+`BlockType.Interactions.Use` is what makes a press-F on the placed block fire the RootInteraction
+above):
 
 ```json
 {
@@ -398,9 +399,6 @@ placed block fire the RootInteraction above):
       { "Texture": "Blocks/Hypixel/Lobby/Poster_Wall_01.png", "Weight": 1 }
     ],
     "DrawType": "Model",
-    "Flags": {
-      "IsUsable": true
-    },
     "Gathering": {
       "Soft": { "IsWeaponBreakable": false }
     },

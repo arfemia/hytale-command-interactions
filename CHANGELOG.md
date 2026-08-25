@@ -2,6 +2,23 @@
 
 Developer changelog for InteractionCommands. User-facing release notes live in `patch-notes/`.
 
+## 1.1.0
+
+Hytale Update 6 (0.6.x) compatibility; no code change.
+
+- **Builds against the Update 6 pre-release server (0.6.0-pre.13)** with zero API breakage in this
+  mod; the manifest's `ServerVersion` reads `>=0.6.0-pre.13 <0.7.0`, so the jar no longer targets
+  Update 5 servers. The jar's behavior is unchanged.
+- **The docs' block example drops the retired `Flags.IsUsable` flag.** Update 6 retired the flag
+  from block JSON: `BlockType.Interactions.Use` alone makes a placed block usable, and a file
+  still carrying the old flag loads as before with one unused-key warning per asset in the server
+  log. `README.md` and `CURSEFORGE.md` teach the 0.6 shape, and both state the Update 6 server
+  requirement.
+- **The InteractionCommandsExamples pack targets Update 6 too.** Its manifest moves to the same
+  `>=0.6.0-pre.13 <0.7.0` range (a pack declaring the old range would refuse to load on a 0.6
+  server) and bumps to 1.1.0; the committed zip is rebuilt from the same source, no content
+  change.
+
 ## 1.0.0
 
 First release. Adds the `RunCommand` custom interaction Type, a single, dependency-free primitive

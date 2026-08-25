@@ -4,9 +4,9 @@
 
 Command Interactions adds one custom interaction Type, `RunCommand`, that you author inline anywhere a native Hytale interaction chain accepts a step. A weapon swing that fires a command on a lucky hit, a consumable that grants a bonus item on eat, a custom block that runs a permission-gated warp when pressed: if it's built out of the same interaction chains Hytale's own items and abilities use, you can drop a command into it. Zero dependencies, one jar.
 
-> v1.0.0. First release. The `RunCommand` interaction Type: server or player-authority execution,
-> per-player cooldowns, chance-gated procs, permission gates, and full placeholder substitution
-> (`{player}`, `{target}`, position, world, held item).
+> v1.1.0. The `RunCommand` interaction Type: server or player-authority execution, per-player
+> cooldowns, chance-gated procs, permission gates, and full placeholder substitution
+> (`{player}`, `{target}`, position, world, held item). Built for Hytale Update 6 (0.6.x).
 
 **Source & full docs:** [github.com/arfemia/hytale-command-interactions](https://github.com/arfemia/hytale-command-interactions) -
 **example pack (ready to drop in):** [InteractionCommandsExamples.zip](https://github.com/arfemia/hytale-command-interactions/raw/main/examples/InteractionCommandsExamples.zip)
@@ -49,7 +49,7 @@ Command Interactions adds one custom interaction Type, `RunCommand`, that you au
 ## Install
 
 1. Drop `InteractionCommands-<version>.jar` into your server's `Mods/` folder.
-2. Requires a Hytale server in the Update 5 range (`>=0.5.0-pre.0 <0.6.0`).
+2. Requires a Hytale Update 6 (0.6.x) server (`>=0.6.0-pre.13 <0.7.0`).
 3. No other dependency. Restart the server and you're done; `RunCommand` is now available to
    author in your own asset pack (which needs `"IncludesAssetPack": true` in its `manifest.json`,
    as with any pack authoring native content).
@@ -180,13 +180,14 @@ the native one? Use a different filename with `"Parent": "Weapon_Longsword_Crude
 
 Files: `Server/Item/RootInteractions/MyPack_Arena_Warp.json` (below) plus a placeable BLOCK that
 references it, e.g. `Server/Item/Items/MyPack_Arena_Beacon.json` with
-`BlockType.Flags.IsUsable: true` and `BlockType.Interactions.Use: "MyPack_Arena_Warp"` (a
-RootInteraction nothing points at never fires). A custom ITEM's own top-level
-`"Interactions": {"Use": ...}` decodes but has no vanilla precedent and no confirmed client
-dispatch path; every native `Use` hangs off a **block's** `BlockType.Interactions.Use` instead, so
-model yours on the in-game-validated `MMO_Bounty_Board.json` block in the MMOSkillBountyPack
-content pack (a wall-poster-shaped block reusing a vanilla model/texture, `Flags.IsUsable: true`,
-its `Use` pointing at a RootInteraction).
+`BlockType.Interactions.Use: "MyPack_Arena_Warp"` (a RootInteraction nothing points at never
+fires). On 0.6, `Interactions.Use` alone is what makes a placed block usable; the old
+`Flags.IsUsable` flag is retired, and a file still carrying it just logs an unused-key warning in
+the server log. A custom ITEM's own top-level `"Interactions": {"Use": ...}` decodes but has no
+confirmed client dispatch path; every native `Use` hangs off a **block's**
+`BlockType.Interactions.Use` instead, so model yours on the in-game-validated
+`MMO_Bounty_Board.json` block in the MMOSkillBountyPack content pack (a wall-poster-shaped block
+reusing a vanilla model/texture, its `Use` pointing at a RootInteraction).
 
 ```json
 {
@@ -231,6 +232,7 @@ mod's repository.
 
 | Version | Notes                                                                                                                                                                                                                         |
 | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1.1.0   | Hytale Update 6 (0.6.x) build (`>=0.6.0-pre.13 <0.7.0`), no behavior change. The block example drops the retired usable-block flag: a block's `Interactions.Use` alone drives usability on 0.6, and a leftover flag just logs an unused-key warning. |
 | 1.0.0   | First release. The `RunCommand` interaction Type: `Commands`/`RunAs`/`Cooldown`/`Chance`/`Permission`, full placeholder substitution, silent-skip gate semantics, unresolved-placeholder per-command skip. Zero dependencies. |
 
 ---

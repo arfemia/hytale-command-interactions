@@ -8,10 +8,11 @@ chance, and permission node, with placeholder substitution into each command str
 supplemental mod under the **hyMMO monorepo**'s `additional-mods/` (a git submodule; development
 is launched from hyMMO, like the content packs and every other sibling mod).
 
-**Status: v1.0.0 (unreleased).** The interaction Type, its five codec fields, placeholder
-substitution, and the silent-skip gate semantics are the whole mod. It ships no assets, no lang
-files, and no commands of its own; every worked example in `README.md`/`CURSEFORGE.md` lives in a
-server owner's own asset pack.
+**Status: v1.1.0 (held for the Update 6 wave; the Update 6 rebuild + doc refresh over the
+released 1.0.0).** The interaction Type, its five codec fields, placeholder substitution, and
+the silent-skip gate semantics are the whole mod. It ships no assets, no lang files, and no
+commands of its own; every worked example in `README.md`/`CURSEFORGE.md` lives in a server
+owner's own asset pack.
 
 ## Build
 
@@ -43,7 +44,7 @@ examples/                                              the runnable InteractionC
                                                         pack (source + build-example-pack.ps1 + the
                                                         committed zip); hard-deps this mod, ships no
                                                         Java of its own, see its own section below
-src/main/resources/manifest.json                       Group Ziggfreed, ServerVersion ">=0.5.0-pre.0 <0.6.0",
+src/main/resources/manifest.json                       Group Ziggfreed, ServerVersion ">=0.6.0-pre.13 <0.7.0",
                                                         declares no IncludesAssetPack key at all (no assets, no
                                                         lang), no Dependencies
 src/main/java/com/ziggfreed/interactioncommands/
