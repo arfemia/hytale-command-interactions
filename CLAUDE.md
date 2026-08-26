@@ -78,6 +78,15 @@ src/main/java/com/ziggfreed/interactioncommands/
                                                         Throwable overloads, guarded try/catch so a unit-JVM
                                                         without a Hytale log manager never crashes a test) -
                                                         never a raw LOGGER fluent chain outside Log itself
+src/test/java/com/ziggfreed/interactioncommands/util/
+  GateLogicTest.java / PlaceholdersTest.java         15 engine-free unit tests (JUnit + java.util
+                                                        imports only). The Hytale server jar is
+                                                        deliberately OFF the test classpath (forcing
+                                                        RunCommandInteraction.CODEC's class-init outside a
+                                                        live server throws), so anything needing the engine
+                                                        is not unit-testable here; PlaceholdersTest drives
+                                                        its coverage off Placeholders.knownTokens() rather
+                                                        than a hardcoded copy of the token list
 ```
 
 No `Server/` asset tree, no `Languages/`, no `.ui` under `src/main/resources/`. This mod has zero
@@ -146,12 +155,12 @@ own Gradle build; the two build normally in sequence (`.\build.ps1` for the jar,
   discards each returned future would instead race every entry in parallel on the common pool; this
   mod deliberately never does that. **Abort semantics are inherited from `CommandManager`, not
   chosen by this mod**: `handleCommands0`'s recursive `thenCompose` (see
-  `CommandManager.java:450-453`) means a command that throws a genuine, uncaught error completes
+  `CommandManager.java:475-477`) means a command that throws a genuine, uncaught error completes
   its future EXCEPTIONALLY, so `thenCompose` never runs the next recursive call and every remaining
   entry in that fire's `Commands` list is silently dropped (never even attempted); this mod's own
   `.exceptionally` hook on the returned future logs that as a `Log.warn`. A command that is merely
   **unknown** (no matching registration) completes its future NORMALLY instead
-  (`CommandManager.java:352-357`), so it does NOT abort the rest of the list. Do not change this
+  (`CommandManager.java:376-382`), so it does NOT abort the rest of the list. Do not change this
   dispatch mechanism to "fix" the abort behavior; it is the engine's own sequential-executor
   contract, only documented here (README/CURSEFORGE Troubleshooting cover the user-facing version).
   The sender is selected once per fire by `RunAs`:
@@ -191,7 +200,10 @@ own Gradle build; the two build normally in sequence (`.\build.ps1` for the jar,
   other Hytale asset codec in this monorepo.
 - Never call a deprecated engine API and never `@SuppressWarnings("deprecation")`. Read the shared
   source's deprecation javadoc for the current replacement before touching an API that looks
-  legacy; if there is genuinely no replacement, ask before proceeding.
+  legacy; if there is genuinely no replacement, ask before proceeding. BUILD-ENFORCED: `compileJava`
+  carries `-Xlint:removal -Werror` (`build.gradle`), so calling any Hytale API marked
+  `@Deprecated(forRemoval = true)` is a hard compile failure (compileJava only, not
+  compileTestJava).
 - `@Nonnull`/`@Nullable` on every parameter.
 - Log through `util.Log` (info/warn/severe/fine, `Throwable` overloads), never a raw
   `InteractionCommandsPlugin.LOGGER` fluent chain outside `Log` itself, mirroring every sibling
