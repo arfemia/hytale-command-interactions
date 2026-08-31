@@ -8,7 +8,7 @@ chance, and permission node, with placeholder substitution into each command str
 supplemental mod under the **hyMMO monorepo**'s `additional-mods/` (a git submodule; development
 is launched from hyMMO, like the content packs and every other sibling mod).
 
-**Status: v1.1.0 (held for the Update 6 wave; the Update 6 rebuild + doc refresh over the
+**Status: v1.1.0 (released 2026-08-31; the Update 6 rebuild + doc refresh over the
 released 1.0.0).** The interaction Type, its five codec fields, placeholder substitution, and
 the silent-skip gate semantics are the whole mod. It ships no assets, no lang files, and no
 commands of its own; every worked example in `README.md`/`CURSEFORGE.md` lives in a server
