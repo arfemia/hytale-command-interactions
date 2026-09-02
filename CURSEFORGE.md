@@ -26,16 +26,16 @@ Command Interactions adds one custom interaction Type, `RunCommand`, that you au
 - **Weapon procs that run commands.** Add a `RunCommand` step to any weapon's swing/hit chain
   (native or your own), gated by `Chance` and `Cooldown`, so a strike can fire a message, a
   reward, or anything else a command can do.
-- **Consumables that run commands.** Chain a `RunCommand` step into a food or potion's consume
-  effect alongside native steps like `ApplyEffect`, so eating something can also grant an item,
-  announce a bonus, or trigger anything server-side.
-- **Buttons and blocks that run commands.** Author a standalone RootInteraction that a custom
-  usable item or block references, gating the command behind a `Permission` node and running it
-  as the player so their own permissions decide the outcome.
-- **Server or player authority, your choice.** `RunAs: "Server"` runs with full console authority
+- Consumables too: chain a `RunCommand` step into a food or potion's consume effect alongside
+  native steps like `ApplyEffect`, so eating something can also grant an item, announce a bonus,
+  or trigger anything server-side.
+- Buttons and blocks: author a standalone RootInteraction that a custom usable item or block
+  references, gating the command behind a `Permission` node and running it as the player so their
+  own permissions decide the outcome.
+- Server or player authority, your choice. `RunAs: "Server"` runs with full console authority
   (the default); `RunAs: "Player"` runs as the interacting player themself, so the game's own
   permission checks apply on top.
-- **Placeholders built in.** `{player}`, `{uuid}`, `{x}`/`{y}`/`{z}`, `{world}`, `{target}`,
+- Placeholders built in: `{player}`, `{uuid}`, `{x}`/`{y}`/`{z}`, `{world}`, `{target}`,
   `{targetUuid}`, `{item}`, substituted at fire time. A command left with an unresolvable
   placeholder (like `{target}` with no target) is skipped on its own, never breaking the rest of
   the list.
