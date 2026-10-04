@@ -47,8 +47,21 @@ import com.ziggfreed.interactioncommands.util.Placeholders;
 /**
  * Custom interaction step, registered as {@code "RunCommand"}, that runs one or more
  * configured server or player commands from anywhere a native Hytale interaction chain
- * is authored (weapon ability chains, consumable Use/Secondary chains, RootInteractions,
- * custom items/blocks).
+ * is authored (weapon chains, consumable Use/Secondary chains, RootInteractions, custom
+ * items/blocks).
+ *
+ * <p><b>{@code Ability2} and {@code Ability3} on a held item (server 0.7.0 on).</b> While a
+ * hotbar item is held, the engine sends those two input types to the player's ability slots,
+ * never to the held item (the {@code Ability2}/{@code Ability3} branch of
+ * {@code InteractionContext}'s context factory: "runes own the inputs"), so a held item's own
+ * chain on either type, and a {@code RunCommand} step inside it, is never reached; an empty hand
+ * falls through to the unarmed interactions. {@code Primary}, {@code Secondary},
+ * {@code Ability1}, {@code Ability4} and {@code Pick} keep the held-item path, unless an entity-level
+ * {@code Interactions} claim on the player takes the input first (MMO Skill Tree makes such claims
+ * per player: {@code Ability4} and {@code Pick} by default, never {@code Pick} in Creative;
+ * {@code Ability1} to {@code Ability3} only in its opt-in stance mode, which also always takes
+ * {@code Ability4}, its switch). Nothing in this class can change that routing; the README's
+ * schema reference and Troubleshooting tell pack authors.
  *
  * <p><b>Gate semantics (SPEC).</b> A cooldown still active, a chance-roll miss, an
  * absent permission, or no player on the interacting entity are ALL silent skips: this

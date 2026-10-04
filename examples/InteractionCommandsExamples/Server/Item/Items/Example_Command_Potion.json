@@ -13,10 +13,6 @@
             {
               "Type": "ApplyEffect",
               "EffectId": "Potion_Stamina_Instant_Small"
-            },
-            {
-              "Type": "ApplyEffect",
-              "EffectId": "Potion_Stamina_Cooldown"
             }
           ]
         },

@@ -92,6 +92,12 @@ apply from: "$rootDir/gradle/deprecation-gate.gradle"
 
 test {
     useJUnitPlatform()
+    // ExamplePackManifestTest reads the example pack's manifest.json from its source folder, off
+    // the classpath, so it is declared here: otherwise an edit to that file alone leaves :test
+    // UP-TO-DATE and the drift the test exists to catch passes the build.
+    inputs.file('examples/InteractionCommandsExamples/manifest.json')
+            .withPropertyName('examplePackManifest')
+            .withPathSensitivity(PathSensitivity.NONE)
 }
 
 // Every test JVM: a 512 MB heap, the serial collector and C1-only compilation, which start fastest

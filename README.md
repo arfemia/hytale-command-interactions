@@ -27,7 +27,7 @@ or any custom RootInteraction. It adds exactly one thing to the game: a custom i
 ## Install
 
 1. Drop `InteractionCommands-<version>.jar` into your Hytale server's `Mods/` folder.
-2. Requires a Hytale Update 6 (0.6.x) server (`>=0.6.0-pre.13 <0.7.0`).
+2. Requires a Hytale Update 7 (0.7.x) server (`>=0.7.0-pre.0 <0.8.0`).
 3. **Zero dependencies.** No other mod, library, or content pack is required; this is a
    single-jar install.
 4. Restart the server. InteractionCommands ships no assets, no lang files, and no commands of its
@@ -41,6 +41,16 @@ your own asset pack's items, blocks, or RootInteractions, wherever a native inte
 accepts a step (an inline `{"Type": "...", ...}` object or a string ref to another interaction
 asset). Your pack needs `"IncludesAssetPack": true` in its `manifest.json` for the engine to load
 its JSON content at all; that requirement is native to Hytale packs, not something this mod adds.
+
+**Two slots never fire from a held item on Update 7.** While an item is in your hand, Hytale 0.7
+sends the `Ability2` and `Ability3` inputs to your slotted abilities (the runes) instead of to that
+item, so a `RunCommand` step on a held item's own `Ability2` or `Ability3` interaction never runs.
+`Primary`, `Secondary`, `Ability1`, `Ability4` (H by default, and players can rebind it) and `Pick`
+(middle mouse) still run the held item's own interactions. One exception: a player's MMO Skill Tree
+ability slot can take over an input, and then that player's held item does not get it. By default
+the MMO uses `Ability4` and `Pick` (never `Pick` for a player in Creative); it uses `Ability1`,
+`Ability2` and `Ability3` only for a player who turned on its stance mode, and for that player it
+always takes `Ability4`, the input its stance switch sits on.
 
 ### Fields
 
@@ -140,6 +150,14 @@ player's chat. If you need player-visible feedback from the command itself, use 
 instead (subject to the player's own permissions), or have the command explicitly message the
 player.
 
+**A step on a held item's `Ability2` or `Ability3` never fires on Update 7.** This is not a gate
+miss, so there is no log line either: the game never runs that interaction. On 0.7 servers those two
+inputs go to your slotted abilities whenever an item is in your hand. Move the step to the item's
+`Primary` or `Secondary` interaction. `Ability1`, `Ability4` and `Pick` also work, except for a
+player whose MMO Skill Tree ability slot is set to that input: the MMO takes it first, so the item's
+step does not run for that player (by default the MMO uses `Ability4` and `Pick`; the schema
+reference lists the exceptions).
+
 ## Worked examples
 
 All three examples live in **your own asset pack** (server owner or content-pack author), not in
@@ -167,9 +185,9 @@ three worked examples below.
    Meal and watch it fire a `RunCommand` step that gives you a Command Potion, chaining straight
    into the potion example.
 
-The pack's own layout (three items under `Server/Item/Items/`, one `.lang` file) is documented in
-"Example asset pack" in [CLAUDE.md](CLAUDE.md); the source is a good starting point to copy from
-for your own pack.
+The pack's own layout (three items under `Server/Item/Items/`, one `.lang` file) is the
+`examples/InteractionCommandsExamples` folder in this repository; the source is a good starting
+point to copy from for your own pack.
 
 ### Where files go
 
