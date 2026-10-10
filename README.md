@@ -443,7 +443,7 @@ containing `<patchline>/package/game/...`), or edit `hytaleHome` in `gradle.prop
 fails fast with a clear message if it can't find `HytaleServer.jar` either way.
 
 ```powershell
-cd hytale-command-interactions   # this repo's root (additional-mods/command-interactions in hyMMO)
+cd hytale-command-interactions   # this repo's root (mods/command-interactions in the hytale-dev workspace)
 .\build.ps1                  # build the jar, install it if a Mods folder is known
 .\build.ps1 -Install:$false  # build only
 ```

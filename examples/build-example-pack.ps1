@@ -4,7 +4,7 @@
 # path (Java's ZipFileSystem.isDirectory() returns false without them, so Hytale's
 # I18nModule.loadMessagesFromPack would skip Server/Languages and its .lang file).
 # Never use Compress-Archive: it writes backslash separators Hytale silently drops
-# on Windows. Mirrors content-packs/bounty-contracts-pack/build.ps1.
+# on Windows. Mirrors mmo-family/packs/bounty-contracts-pack/build.ps1.
 #
 #   .\build-example-pack.ps1                  # build, then install if a Mods folder is known
 #   .\build-example-pack.ps1 -Install:$false  # build only, no copy
