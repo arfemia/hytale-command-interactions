@@ -37,11 +37,12 @@ repositories {
 // (env var) overrides either hytaleHome, so a fresh clone on another machine can build
 // without editing a tracked file; either way, fail configuration explicitly with a clear
 // message rather than let a missing jar surface as hundreds of unresolved-symbol
-// compile errors with no hint of the cause.
+// compile errors with no hint of the cause. family.properties is read through
+// providers.fileContents, so the configuration cache tracks it, its absence included.
 def familyBuildKeys = new Properties()
-def familyBuildKeysFile = new File(rootProject.file(workspaceRoot), 'family.properties')
-if (familyBuildKeysFile.isFile()) {
-    familyBuildKeysFile.withReader('UTF-8') { familyBuildKeys.load(it) }
+def familyBuildKeysBytes = providers.fileContents(rootProject.layout.projectDirectory.file("${workspaceRoot}/family.properties")).asBytes.orNull
+if (familyBuildKeysBytes != null) {
+    familyBuildKeys.load(new StringReader(new String(familyBuildKeysBytes, 'UTF-8')))
 }
 def buildKey = { String key -> familyBuildKeys.getProperty(key)?.trim() ?: property(key).toString() }
 def hytaleHome = buildKey('hytaleHome')
