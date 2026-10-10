@@ -5,3 +5,5 @@ build/
 out/
 run/
 local.properties
+# The build cache of a repo built outside a workspace (settings.gradle's fallback).
+/.gradle-build-cache/
