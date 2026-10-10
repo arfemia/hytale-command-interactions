@@ -30,17 +30,30 @@ repositories {
 
 // Compile against the SAME jar the server runs. ZERO other dependencies (no
 // ziggfreed-common, no MMO jar) - a deliberate maintainer decision for a single-jar
-// CurseForge install. HYTALE_HOME (env var) overrides the checked-in `hytaleHome`
-// gradle.properties default, so a fresh clone on another machine can build without
-// editing a tracked file; either way, fail configuration explicitly with a clear
+// CurseForge install. In a workspace, its family.properties (at workspaceRoot) names
+// hytaleHome, patchline and game_build once for every family build; built alone, with no
+// family.properties there, this repo's gradle.properties gives them (these locals shadow
+// the gradle.properties values of the same names for the rest of this script). HYTALE_HOME
+// (env var) overrides either hytaleHome, so a fresh clone on another machine can build
+// without editing a tracked file; either way, fail configuration explicitly with a clear
 // message rather than let a missing jar surface as hundreds of unresolved-symbol
 // compile errors with no hint of the cause.
+def familyBuildKeys = new Properties()
+def familyBuildKeysFile = new File(rootProject.file(workspaceRoot), 'family.properties')
+if (familyBuildKeysFile.isFile()) {
+    familyBuildKeysFile.withReader('UTF-8') { familyBuildKeys.load(it) }
+}
+def buildKey = { String key -> familyBuildKeys.getProperty(key)?.trim() ?: property(key).toString() }
+def hytaleHome = buildKey('hytaleHome')
+def patchline = buildKey('patchline')
+def game_build = buildKey('game_build')
 def resolvedHytaleHome = System.getenv('HYTALE_HOME') ?: hytaleHome
 def hytaleServerJar = new File("${resolvedHytaleHome}/${patchline}/package/game/${game_build}/Server/HytaleServer.jar")
 if (!hytaleServerJar.exists()) {
     throw new GradleException(
             "HytaleServer.jar not found at ${hytaleServerJar}. Set the HYTALE_HOME environment " +
-            "variable to your Hytale install directory, or edit 'hytaleHome' in gradle.properties.")
+            "variable to your Hytale install directory, or edit 'hytaleHome' in the workspace's " +
+            "family.properties (in gradle.properties when this repo is built alone).")
 }
 
 dependencies {
