@@ -4,9 +4,9 @@
 
 Command Interactions adds one custom interaction Type, `RunCommand`, that you author inline anywhere a native Hytale interaction chain accepts a step. A weapon swing that fires a command on a lucky hit, a consumable that grants a bonus item on eat, a custom block that runs a permission-gated warp when pressed: if it's built out of the same interaction chains Hytale's own items and abilities use, you can drop a command into it. Zero dependencies, one jar.
 
-> v1.1.0. The `RunCommand` interaction Type: server or player-authority execution, per-player
+> v1.1.1. The `RunCommand` interaction Type: server or player-authority execution, per-player
 > cooldowns, chance-gated procs, permission gates, and full placeholder substitution
-> (`{player}`, `{target}`, position, world, held item). Built for Hytale Update 6 (0.6.x).
+> (`{player}`, `{target}`, position, world, held item). Built for Hytale Update 7 (0.7.x).
 
 **Source & full docs:** [github.com/arfemia/hytale-command-interactions](https://github.com/arfemia/hytale-command-interactions) -
 **example pack (ready to drop in):** [InteractionCommandsExamples.zip](https://github.com/arfemia/hytale-command-interactions/raw/main/examples/InteractionCommandsExamples.zip)
@@ -49,7 +49,8 @@ Command Interactions adds one custom interaction Type, `RunCommand`, that you au
 ## Install
 
 1. Drop `InteractionCommands-<version>.jar` into your server's `Mods/` folder.
-2. Requires a Hytale Update 6 (0.6.x) server (`>=0.6.0-pre.13 <0.7.0`).
+2. Requires a Hytale Update 7 (0.7.x) server (`>=0.7.0-pre.0 <0.8.0`). A server still on Update 6
+   stays on 1.1.0.
 3. No other dependency. Restart the server and you're done; `RunCommand` is now available to
    author in your own asset pack (which needs `"IncludesAssetPack": true` in its `manifest.json`,
    as with any pack authoring native content).
@@ -181,7 +182,7 @@ the native one? Use a different filename with `"Parent": "Weapon_Longsword_Crude
 Files: `Server/Item/RootInteractions/MyPack_Arena_Warp.json` (below) plus a placeable BLOCK that
 references it, e.g. `Server/Item/Items/MyPack_Arena_Beacon.json` with
 `BlockType.Interactions.Use: "MyPack_Arena_Warp"` (a RootInteraction nothing points at never
-fires). On 0.6, `Interactions.Use` alone is what makes a placed block usable; the old
+fires). Since 0.6, `Interactions.Use` alone is what makes a placed block usable; the old
 `Flags.IsUsable` flag is retired, and a file still carrying it just logs an unused-key warning in
 the server log. A custom ITEM's own top-level `"Interactions": {"Use": ...}` decodes but has no
 confirmed client dispatch path; every native `Use` hangs off a **block's**
@@ -232,6 +233,7 @@ mod's repository.
 
 | Version | Notes                                                                                                                                                                                                                         |
 | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1.1.1 (unreleased, held) | Hytale Update 7 (0.7.x) build (`>=0.7.0-pre.0 <0.8.0`), no behavior change. On Update 7 the game sends a held item's `Ability2` and `Ability3` inputs to your slotted runes, so a `RunCommand` step on those two interactions of a held item never runs: put it on `Primary` or `Secondary` instead. The example pack's potion uses the game's own drink cooldown, since Update 7 removed `Potion_Stamina_Cooldown`. |
 | 1.1.0   | Hytale Update 6 (0.6.x) build (`>=0.6.0-pre.13 <0.7.0`), no behavior change. The block example drops the retired usable-block flag: a block's `Interactions.Use` alone drives usability on 0.6, and a leftover flag just logs an unused-key warning. |
 | 1.0.0   | First release. The `RunCommand` interaction Type: `Commands`/`RunAs`/`Cooldown`/`Chance`/`Permission`, full placeholder substitution, silent-skip gate semantics, unresolved-placeholder per-command skip. Zero dependencies. |
 
