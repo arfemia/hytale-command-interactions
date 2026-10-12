@@ -27,7 +27,7 @@ or any custom RootInteraction. It adds exactly one thing to the game: a custom i
 ## Install
 
 1. Drop `InteractionCommands-<version>.jar` into your Hytale server's `Mods/` folder.
-2. Requires a Hytale Update 7 (0.7.x) server (`>=0.7.0-pre.0 <0.8.0`).
+2. Requires a Hytale Update 7 (0.7.x) server.
 3. **Zero dependencies.** No other mod, library, or content pack is required; this is a
    single-jar install.
 4. Restart the server. InteractionCommands ships no assets, no lang files, and no commands of its
